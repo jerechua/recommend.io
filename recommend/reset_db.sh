@@ -1,5 +1,5 @@
 #!/bin/bash
 
 rm ./recommend_db
-./manage.py syncdb
+python manage.py syncdb
 ./run.sh

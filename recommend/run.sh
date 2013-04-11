@@ -1,3 +1,3 @@
 #! /bin/bash
 
-./manage.py runserver 3030 
+python manage.py runserver 3030 
