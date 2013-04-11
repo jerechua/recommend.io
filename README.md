@@ -15,24 +15,24 @@ where we put all our frontend files
 ###Setup###
 * Might wanna use virtualenv, only needs to be done once:
 
-    '''virtualenv env'''
+    `virtualenv env`
 
 * Activate the new virtual environment
 
-    '''source env/bin/activate'''
+    `source env/bin/activate`
 
 * Install any (new) requirements as needed
 
-    '''pip install -r reqs.txt'''
+    `pip install -r reqs.txt`
 
 * Any db changes?
 
     * Update db:
-        '''./manage.py syncdb'''
+        `./manage.py syncdb`
 
     * reset db:
-        '''./reset_db.sh'''
+        `./reset_db.sh`
 
 
 * Start server and start clicking away:
-        '''./run.sh'''
+        `./run.sh`
