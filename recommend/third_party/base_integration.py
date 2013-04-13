@@ -13,7 +13,6 @@ class BaseIntegration:
     Used to create the base api calls to third party apis
     """
 
-    DEFAULT_USER = 'recommend_user'
     BASE_URL = ''
 
     def __init__(self, request=None):
@@ -26,13 +25,6 @@ class BaseIntegration:
 
         return {}
 
-    def get_fields(self):
-        """
-        for params that need to be passed
-        """
-
-        return {}
-
     def get_request(self, api_endpoint, **kwargs):
         """
         Does the request
@@ -40,8 +32,6 @@ class BaseIntegration:
 
         if not self.BASE_URL:
             raise BaseUrlNotDefined()
-
-
 
         # Join the requried params with the parameters
         kwargs.update(self.get_static_fields())

@@ -23,13 +23,17 @@ class Easyrec(BaseIntegration):
     def get_fields(self):
         return {}
 
-    def send_rate(self, item_id, rating, item_description, item_url,
-                  user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
+    def send_default_action(
+            self, default_action, item_id, rating, item_description, item_url,
+            user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
         """
-        send a 'rate' action to easyrec
+        Send a default action to easyrec recommend engine. Default actions are rate, view, and buy
         """
 
-        endpoint = "rate"
+        default_actions = ['rate', 'view', 'buy']
+        assert (default_action in default_actions, "Only default actions allowed")
+
+        url = default_action
 
         data = {
             'itemid': item_id,
@@ -44,4 +48,27 @@ class Easyrec(BaseIntegration):
 
         response = self.get_request(endpoint, **data)
 
+    def send_custom_action(
+            self, action_type, item_id, rating, item_description, item_url, action_type,
+            action_value=None, user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
+        """
+        send a custom action to easyrec. Custom actions need to be activated on the engine before
+        it can be used
+        """
 
+        url = 'sendaction'
+
+        data = {
+            'itemid': item_id,
+            'rating': rating,
+            'itemdescription': item_description,
+            'itemurl': item_url,
+            'actiontype': action_type,
+            'actionvalue': action_value
+            'userid': user_id,
+            'itemimageurl': item_image_url,
+            'actiontime': action_time,
+            'itemtype': item_type,
+        }
+
+        response = self.get_request(endpoint, **data)
