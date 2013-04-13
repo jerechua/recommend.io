@@ -20,12 +20,16 @@ class Easyrec(BaseIntegration):
 
         return required
 
-    def get_fields(self):
-        return {}
+    def datetime_now():
+        """
+        Figures out the django time aware object
+        """
+        return time.datetime_now().strftime("%d_%m_%Y_%H_%M_%S")
+
 
     def send_default_action(
             self, default_action, item_id, rating, item_description, item_url,
-            user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
+            user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
         """
         Send a default action to easyrec recommend engine. Default actions are rate, view, and buy
         """
@@ -33,8 +37,6 @@ class Easyrec(BaseIntegration):
         default_actions = ['rate', 'view', 'buy']
         assert (default_action in default_actions, "Only default actions allowed")
 
-        url = default_action
-
         data = {
             'itemid': item_id,
             'rating': rating,
@@ -46,17 +48,15 @@ class Easyrec(BaseIntegration):
             'itemtype': item_type,
         }
 
-        response = self.get_request(endpoint, **data)
+        response = self.get_request(default_action, **data)
 
     def send_custom_action(
-            self, action_type, item_id, rating, item_description, item_url, action_type,
-            action_value=None, user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
+            self, action_type, item_id, rating, item_description, item_url,
+            action_value=None, user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
         """
         send a custom action to easyrec. Custom actions need to be activated on the engine before
         it can be used
         """
-
-        url = 'sendaction'
 
         data = {
             'itemid': item_id,
@@ -64,11 +64,11 @@ class Easyrec(BaseIntegration):
             'itemdescription': item_description,
             'itemurl': item_url,
             'actiontype': action_type,
-            'actionvalue': action_value
+            'actionvalue': action_value,
             'userid': user_id,
             'itemimageurl': item_image_url,
             'actiontime': action_time,
             'itemtype': item_type,
         }
 
-        response = self.get_request(endpoint, **data)
+        response = self.get_request('sendaction', **data)
