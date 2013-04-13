@@ -15,7 +15,7 @@ class Easyrec(BaseIntegration):
         required['tenantid'] = settings.API_KEYS['easyrec']['tenant_id']
 
         required['sessionid'] = self.DEFAULT_SESSION_ID
-        if self.request.is_authenticated():
+        if self.request.user.is_authenticated():
             required['sessionid'] = self.request.session.session_key
 
         return required
@@ -25,6 +25,9 @@ class Easyrec(BaseIntegration):
 
     def send_rate(self, item_id, rating, item_description, item_url,
                   user_id=None, item_image_url=None, action_time=time.datetime_now(), item_type=None):
+        """
+        send a 'rate' action to easyrec
+        """
 
         endpoint = "rate"
 
@@ -39,9 +42,6 @@ class Easyrec(BaseIntegration):
             'itemtype': item_type,
         }
 
-        response = self.send_request(endpoint, **data)
+        response = self.get_request(endpoint, **data)
 
 
-
-x = Easyrec()
-x.send_rate(1, 1, "Asdf", "123", "456", 'http', 'time', 'type')
