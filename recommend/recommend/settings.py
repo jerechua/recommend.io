@@ -123,6 +123,8 @@ INSTALLED_APPS = (
     'recommend_core',
     'recommend_api',
     'rest_framework',
+    'third_party',
+    'utils',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
