@@ -157,3 +157,14 @@ LOGGING = {
         },
     }
 }
+
+
+# Custom Settings:
+
+API_KEYS = {}
+API_KEYS['easyrec'] = {
+    'api_key': '',
+    'api_token': '',
+    'tenant_id': '',
+    'api_url': '',
+}
