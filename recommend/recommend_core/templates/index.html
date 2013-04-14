@@ -1,5 +1,25 @@
 <html>
     <body>
-        <h1>Hello World!</h1>
+        <ul>
+        {% for anime in animes %}
+            <li>
+                <strong> {{ anime.title }} </strong>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            {% if animes.has_previous %}
+                <a href="?page={{ animes.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
+            </span>
+
+            {% if animes.has_next %}
+                <a href="?page={{ animes.next_page_number }}">next</a>
+            {% endif %}
+        </div>
     </body>
 </html>

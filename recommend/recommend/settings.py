@@ -168,6 +168,8 @@ LOGGING = {
 
 # Custom Settings:
 
+PAGINATE_BY = 10
+
 API_KEYS = {}
 API_KEYS['easyrec'] = {
     'api_key': '',
