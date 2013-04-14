@@ -1,55 +1,111 @@
-<html>
+<html ng-app="recommendr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <title>Recommendr</title>
 
-        <link rel="stylesheet" href="css/normalize.css" />
-        <link rel="stylesheet" href="css/app.css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/foundation.min.css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="{{STATIC_URL}}css/app.css"/>
 
-        <script src="js/vendor/custom.modernizr.js"></script>
+        <script src="{{STATIC_URL}}js/vendor/custom.modernizr.js"></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
+        <script src="{{STATIC_URL}}js/recommendr.js"></script>
+        <script src="{{STATIC_URL}}js/controller/main_controller.js"></script>
+
     </head>
     <body>
-        <ul>
-        {% for anime in animes %}
-            <li>
-                <strong> {{ anime.title }} </strong>
-            </li>
-        {% endfor %}
-        </ul>
+        <nav class='top-bar'>
+            <ul class='title-area'>
+                <li class='name'>
+                    <h1><a href='/'>Recommendr</a></h1>
+                </li>
+            </ul>
+        </nav>
 
-        <div class="pagination">
-            {% if animes.has_previous %}
-                <a href="?page={{ animes.previous_page_number }}">previous</a>
-            {% endif %}
+        <div class='row'>
+            <div class='main-content panel row'>
+                <div class='small-6 columns'>
+                    <img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></img>
+                </div>
 
-            <span class="current">
-                Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
-            </span>
+                <div class='small-6 columns'>
+                    <div class='row'>
+                        <h1>Gundam</h1>
+                        <p>
+                            Some description about gundam here
+                        </p>
+                    </div>
+                    <div class='row'>
+                        <ul class='button-group'>
+                            <li><a href="#" class='small button'>Watched</a></li>
+                            <li><a href="#" class='small button'>Want to watch</a></li>
+                        </ul>
+                        <div class='rating'>
+                            <span class="icon-star-empty"></span>
+                            <span class="icon-star-empty"></span>
+                            <span class="icon-star-empty"></span>
+                            <span class="icon-star-empty"></span>
+                            <span class="icon-star-empty"></span>
+                        </div>
+                    </div>
 
-            {% if animes.has_next %}
-                <a href="?page={{ animes.next_page_number }}">next</a>
-            {% endif %}
+                </div>
+
+               <!--  <div class='row'>
+                    <div>
+                        <ul class='button-group'>
+                            <li><a href="#" class='small button'>Watched</a></li>
+                            <li><a href="#" class='small button'>Want to watch</a></li>
+                            <li><a href="#" class='small button'>Rate</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+
+            </div>
+
+
+            <ul>
+            {% for anime in animes %}
+                <li>
+                    <strong> {{ anime.title }} </strong>
+                </li>
+            {% endfor %}
+            </ul>
+
+            <div class="pagination">
+                {% if animes.has_previous %}
+                    <a href="?page={{ animes.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
+                </span>
+
+                {% if animes.has_next %}
+                    <a href="?page={{ animes.next_page_number }}">next</a>
+                {% endif %}
+            </div>
         </div>
     </body>
 
-    <script src="js/foundation/foundation.js"></script>
-    <script src="js/foundation/foundation.alerts.js"></script>
-    <script src="js/foundation/foundation.clearing.js"></script>
-    <script src="js/foundation/foundation.cookie.js"></script>
-    <script src="js/foundation/foundation.dropdown.js"></script>
-    <script src="js/foundation/foundation.forms.js"></script>
-    <script src="js/foundation/foundation.joyride.js"></script>
-    <script src="js/foundation/foundation.magellan.js"></script>
-    <script src="js/foundation/foundation.orbit.js"></script>
-    <script src="js/foundation/foundation.placeholder.js"></script>
-    <script src="js/foundation/foundation.reveal.js"></script>
-    <script src="js/foundation/foundation.section.js"></script>
-    <script src="js/foundation/foundation.tooltips.js"></script>
-    <script src="js/foundation/foundation.topbar.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.alerts.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.clearing.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.cookie.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.dropdown.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.forms.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.joyride.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.magellan.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.orbit.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.placeholder.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.reveal.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.section.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.tooltips.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.topbar.js"></script>
 
 </html>

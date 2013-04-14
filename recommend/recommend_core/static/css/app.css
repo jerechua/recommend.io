@@ -1,0 +1,53 @@
+.main {
+    background-color: #A4C1E9;
+}
+
+nav.top-bar {
+    background-color: #0F4FA8;   
+}
+
+div.main-content div.image {
+
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  color: #FFC960;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  font-size: 2em;
+  /*width: .5em;*/
+}
+.rating > span:hover,
+.rating > span:hover ~ span {
+  color: transparent;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\f005";
+   color: #FFC960;
+}
+
+/*div.main-content {
+    position: relative;
+}*/
+/*
+    div.main-content img {
+        max-height: 600px;
+        max-width: 400px;
+    }*/
+
+    /*div.main-content span {
+        float: left;
+        padding: 5px 5px;
+    }
+
+    div.main-content div.options {
+        position:absolute;
+        bottom: 9px;
+        left: 450px;
+    }*/
