@@ -6,8 +6,23 @@ nav.top-bar {
     background-color: #0F4FA8;   
 }
 
-div.main-content div.image {
+div.main-content img {
+    max-height: 600px;
+    max-width: 500px;
 
+}
+
+div.suggestions {
+    height: 210px;
+}
+div.suggestions img {
+    height: 200px;
+    max-width: 150px;
+}
+
+div.suggestions ul li a.paginate {
+    margin-top: 80px;
+    font-size: 2em;
 }
 
 .rating {

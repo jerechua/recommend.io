@@ -44,53 +44,32 @@
                         <ul class='button-group'>
                             <li><a href="#" class='small button'>Watched</a></li>
                             <li><a href="#" class='small button'>Want to watch</a></li>
+                            <div class='rating'>
+                                <span class="icon-star-empty"></span>
+                                <span class="icon-star-empty"></span>
+                                <span class="icon-star-empty"></span>
+                                <span class="icon-star-empty"></span>
+                                <span class="icon-star-empty"></span>
+                            </div>
                         </ul>
-                        <div class='rating'>
-                            <span class="icon-star-empty"></span>
-                            <span class="icon-star-empty"></span>
-                            <span class="icon-star-empty"></span>
-                            <span class="icon-star-empty"></span>
-                            <span class="icon-star-empty"></span>
-                        </div>
                     </div>
-
                 </div>
-
-               <!--  <div class='row'>
-                    <div>
-                        <ul class='button-group'>
-                            <li><a href="#" class='small button'>Watched</a></li>
-                            <li><a href="#" class='small button'>Want to watch</a></li>
-                            <li><a href="#" class='small button'>Rate</a></li>
-                        </ul>
-                    </div>
-                </div> -->
-
-            </div>
-
-
-            <ul>
-            {% for anime in animes %}
-                <li>
-                    <strong> {{ anime.title }} </strong>
-                </li>
-            {% endfor %}
-            </ul>
-
-            <div class="pagination">
-                {% if animes.has_previous %}
-                    <a href="?page={{ animes.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
-                </span>
-
-                {% if animes.has_next %}
-                    <a href="?page={{ animes.next_page_number }}">next</a>
-                {% endif %}
             </div>
         </div>
+
+        <div class='row suggestions'>
+            <h4>Recommendr suggests:</h4>
+            <ul class='inline-list'>
+                <li><a href="#" class='paginate'><i class='icon-chevron-left'></i></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#" class='paginate'><i class='icon-chevron-right'></i></a></li>
+            </ul>
+        </div>
+
     </body>
 
     <script src="{{STATIC_URL}}js/foundation/foundation.js"></script>
