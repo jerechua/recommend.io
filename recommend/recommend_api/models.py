@@ -18,4 +18,4 @@ class AnimeTitle(models.Model):
     type = models.CharField(max_length=20)
 
     def __str__(self):
-        return "%s - %s (%s)" % (self.anime, self.title, self.locale)
+        return "%s - %s (%s)" % (self.type, self.title, self.locale)

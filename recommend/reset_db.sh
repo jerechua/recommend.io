@@ -2,4 +2,4 @@
 
 rm ./recommend_db
 python manage.py syncdb --noinput
-./run.sh
+python manage.py load_anime_data ../../anime-lists/animetitles.xml
