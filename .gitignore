@@ -1,3 +1,5 @@
 *.pyc
 env
 my_settings.py
+recommend_db
+recommend_db_bak
