@@ -27,6 +27,10 @@ https://trello.com/board/recommend/5169f1222cc31afe7a00133d
     * reset db:
         `./reset_db.sh`
 
+* Load the anime data, anime data comes from https://github.com/ScudLee/anime-lists or http://anidb.net/api/anime-titles.xml.gz. Clone the repo or download the xml file first.
+
+    `./manage.py load_anime_data ../../anime-list/animetitles.xml`
+
 
 * Start server and start clicking away:
         `./run.sh`
@@ -35,6 +39,8 @@ https://trello.com/board/recommend/5169f1222cc31afe7a00133d
 ### Anime Data ###
 
 Anime data comes from:
+
+http://anidb.net/api/anime-titles.xml.gz
 https://github.com/ScudLee/anime-lists
 
 
