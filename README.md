@@ -3,14 +3,8 @@ Recommend.io
 
 Community driven recommendation for anything and everything!!!
 
-
-###recommend_api###
-
-The recommend api endpoints
-
-###recommend_core###
-
-where we put all our frontend files
+###plan###
+https://trello.com/board/recommend/5169f1222cc31afe7a00133d
 
 ###Setup###
 * Might wanna use virtualenv, only needs to be done once:
@@ -36,3 +30,11 @@ where we put all our frontend files
 
 * Start server and start clicking away:
         `./run.sh`
+
+
+### Anime Data ###
+
+Anime data comes from:
+https://github.com/ScudLee/anime-lists
+
+
