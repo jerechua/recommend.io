@@ -26,7 +26,6 @@ class Easyrec(BaseIntegration):
         """
         return time.datetime_now().strftime("%d_%m_%Y_%H_%M_%S")
 
-
     def send_default_action(
             self, default_action, item_id, rating, item_description, item_url,
             user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
@@ -72,3 +71,35 @@ class Easyrec(BaseIntegration):
         }
 
         response = self.get_request('sendaction', **data)
+
+    def send_rate(self, default_action, item_id, rating, item_description, item_url,
+                  user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
+
+        return self.send_default_action('rate', item_id, rating, item_description,
+                                        item_url, user_id, item_image_url, action_time, item_type)
+
+    def send_buy(self, default_action, item_id, rating, item_description, item_url,
+                 user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
+
+        return self.send_default_action('buy', item_id, rating, item_description,
+                                        item_url, user_id, item_image_url, action_time, item_type)
+
+    def send_view(self, default_action, item_id, rating, item_description, item_url,
+                  user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
+
+        return self.send_default_action('view', item_id, rating, item_description,
+                                        item_url, user_id, item_image_url, action_time, item_type)
+
+    def send_watched(self, action_type, item_id, rating, item_description, item_url,
+                     action_value=None, user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
+
+        return self.send_custom_action('watched', item_id, rating, item_description,
+                                       item_url, action_value, user_id, item_image_url, action_time, item_type):
+
+    def send_want_to_watch(self, action_type, item_id, rating, item_description, item_url,
+                     action_value=None, user_id=None, item_image_url=None, action_time=datetime_now(), item_type=None):
+
+        return self.send_custom_action('want_to_watch', item_id, rating, item_description,
+                                       item_url, action_value, user_id, item_image_url, action_time, item_type):
+
+
