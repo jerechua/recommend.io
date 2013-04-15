@@ -2,14 +2,35 @@ from rest_framework import serializers
 
 from recommend_anime import models as anime_models
 
+
 class AnimeSerializer(serializers.ModelSerializer):
+
     """
+    Serializes the anime data for rest_framework
     """
 
     class Meta:
         model = anime_models.Anime
-        fields = ('anidb_id', 'title')
+        fields = ('id', 'title')
 
+    id = serializers.IntegerField(source='anidb_id')
     title = serializers.CharField(source='title')
 
+
+class TitleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = anime_models.Title
+        fields = ('locale', 'title', 'type')
+
+
+class TitleToAnimeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = anime_models.Title
+        fields = ('id', 'title', 'title_en')
+
+    id = serializers.IntegerField(source='anime.anidb_id')
+    title = serializers.CharField(source='anime.title')
+    title_en = serializers.CharField(source='anime.title_en')
 

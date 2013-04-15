@@ -35,9 +35,9 @@ class Command(BaseCommand):
                     'anime': anime_model,
                 }
 
-                title_model = anime_models.Titles.objects.filter(**title_data)
+                title_model = anime_models.Title.objects.filter(**title_data)
                 if not title_model.exists():
-                    bulk_titles.append(anime_models.Titles(**title_data))
+                    bulk_titles.append(anime_models.Title(**title_data))
 
         anime_models.Anime.objects.bulk_create(bulk_anime)
-        anime_models.Titles.objects.bulk_create(bulk_titles)
+        anime_models.Title.objects.bulk_create(bulk_titles)
