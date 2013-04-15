@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 
 from xml.etree import ElementTree
 
-from recommend_api import models as api_models
+from recommend_anime import models as anime_models
 
 
 class Command(BaseCommand):
@@ -20,11 +20,11 @@ class Command(BaseCommand):
                 'anidb_id': anime.get('aid'),
             }
 
-            anime_model = api_models.Anime.objects.filter(**anime_data)
+            anime_model = anime_models.Anime.objects.filter(**anime_data)
             if anime_model.exists():
                 anime_model = anime_model[0]
             else:
-                anime_model = api_models.Anime(**anime_data)
+                anime_model = anime_models.Anime(**anime_data)
                 bulk_anime.append(anime_model)
 
             for title in anime:
@@ -35,9 +35,9 @@ class Command(BaseCommand):
                     'anime': anime_model,
                 }
 
-                title_model = api_models.AnimeTitle.objects.filter(**title_data)
+                title_model = anime_models.Titles.objects.filter(**title_data)
                 if not title_model.exists():
-                    bulk_titles.append(api_models.AnimeTitle(**title_data))
+                    bulk_titles.append(anime_models.Titles(**title_data))
 
-        api_models.Anime.objects.bulk_create(bulk_anime)
-        api_models.AnimeTitle.objects.bulk_create(bulk_titles)
+        anime_models.Anime.objects.bulk_create(bulk_anime)
+        anime_models.Titles.objects.bulk_create(bulk_titles)

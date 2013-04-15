@@ -4,13 +4,13 @@ from django.core.paginator import Paginator
 
 from django.conf import settings
 
-from recommend_api import models as api_models
+from recommend_anime import models as anime_models
 
 
 class LandingPageView(TemplateView):
     template_name = 'index.html'
 
-    anime_list = api_models.Anime.objects.all()
+    anime_list = anime_models.Anime.objects.all()
     paginator = Paginator(anime_list, settings.PAGINATE_BY)
 
     def get_context_data(self):

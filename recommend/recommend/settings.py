@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'recommend_core',
     'recommend_api',
+    'recommend_anime',
     'rest_framework',
     'third_party',
     'utils',
