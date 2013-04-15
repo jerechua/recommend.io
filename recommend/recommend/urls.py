@@ -8,6 +8,6 @@ urlpatterns = patterns('',
 
     url(r'^$', include('recommend_core.urls')),
 
-    url(r'^$', include('recommend_api.urls')),
+    url(r'^api/', include('recommend_api.urls')),
 
 )

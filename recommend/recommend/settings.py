@@ -171,6 +171,11 @@ LOGGING = {
 
 PAGINATE_BY = 10
 
+# Django Rest Framework settings
+REST_FRAMEWORK = {
+    'PAGINATE_BY': PAGINATE_BY
+}
+
 API_KEYS = {}
 API_KEYS['easyrec'] = {
     'api_key': '',

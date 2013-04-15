@@ -5,9 +5,9 @@ from recommend_core import models as core_models
 class Anime(models.Model):
     anidb_id = models.IntegerField(primary_key=True, null=False, unique=True)
 
-    @property
+    # @property
     def title(self):
-        return self.animetitle_set.get(type='main').title
+        return self.titles_set.get(type='main').title
 
     def __str__(self):
         return "%s - %s" % (self.anidb_id, self.title)
