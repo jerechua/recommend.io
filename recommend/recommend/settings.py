@@ -181,7 +181,7 @@ API_KEYS['easyrec'] = {
     'api_key': '',
     'api_token': '',
     'tenant_id': '',
-    'api_url': '',
+    'base_url': '',
 }
 
 API_KEYS['tvdb'] = {

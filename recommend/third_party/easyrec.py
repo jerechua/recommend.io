@@ -7,7 +7,7 @@ from utils import time
 class Easyrec(BaseIntegration):
 
     DEFAULT_SESSION_ID = 'default_user_session_id'
-    BASE_URL = settings.API_KEYS['easyrec']['base_url'] + "api/1.0/"
+    BASE_URL = settings.API_KEYS['easyrec']['base_url']
 
     def get_static_fields(self):
         required = {}

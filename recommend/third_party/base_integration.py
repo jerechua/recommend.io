@@ -1,4 +1,5 @@
 import urllib
+import requests
 
 from django.conf import settings
 
@@ -39,8 +40,9 @@ class BaseIntegration:
         # convert to querystring
         params = urllib.urlencode(kwargs)
 
-        url = "%s%s?%s" % (self.BASE_URL, api_endpoint, params)
-        print url
+        url = "%s%s" % (self.BASE_URL, api_endpoint)
+
+        return requests.get(url, params=params)
 
     def post_request(self, api_endpoint, **kwargs):
 
