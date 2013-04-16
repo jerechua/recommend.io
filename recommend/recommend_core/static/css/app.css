@@ -6,11 +6,30 @@ nav.top-bar {
     background-color: #0F4FA8;   
 }
 
+div.main-content {
+    position:relative;
+}
+
 div.main-content img {
     max-height: 600px;
     max-width: 500px;
 
 }
+
+div.main-content ul{
+    position:absolute;
+    bottom:0;
+    left: 50%;
+}
+
+    div.main-content ul > li.rating {
+        margin-left: 20px;
+    }
+
+    div.main-content ul > li.rating i {
+        font-size:1.5em;
+        margin-left: -8px;
+    }
 
 div.suggestions {
     height: 210px;
@@ -26,25 +45,25 @@ div.suggestions ul li a.paginate {
 }
 
 .rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: center;
-  color: #FFC960;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    color: #FFC960;
 }
 .rating > span {
-  display: inline-block;
-  position: relative;
-  font-size: 2em;
-  /*width: .5em;*/
+    display: inline-block;
+    position: relative;
+    font-size: 2em;
+    /*width: .5em;*/
 }
 .rating > span:hover,
-.rating > span:hover ~ span {
-  color: transparent;
+.rating > span:hover ~ span {   
+    color: transparent;
 }
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
-   content: "\f005";
-   color: #FFC960;
+    content: "\f005";
+    color: #FFC960;
 }
 
 /*div.main-content {

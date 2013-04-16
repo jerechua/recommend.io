@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from xml.etree import ElementTree
 
@@ -7,17 +7,50 @@ from recommend_anime import models as anime_models
 
 class Command(BaseCommand):
     help = '''Loads the data coming from readme anime data sources. The
-    data comes from ScudLee's animelist.xml which comes from anidb.net'''
+    data comes from ScudLee's animetitles.xml which comes from anidb.net'''
 
     def handle(self, *args, **options):
-        anime_titles = ElementTree.parse(args[0]).getroot()
+
+        if len(args) == 0:
+            raise CommandError('No directory supplied')
+
+        base_path = args[0]
+
+        animetitles_xml = '%s/animetitles.xml' % (base_path)
+        animelistmaster_xml = '%s/anime-list-master.xml' % (base_path)
+
+        try:
+            with open(animetitles_xml): pass
+        except IOError:
+            raise CommandError('%s does not exist' % (animetitles_xml))
+
+        try:
+            with open(animelistmaster_xml): pass
+        except IOError:
+            raise CommandError('%s does not exist' % (animelistmaster_xml))
+
+
+        # Load animetitles.xml first
+        anime_titles = ElementTree.parse(animetitles_xml).getroot()
+        anime_tvdb = ElementTree.parse(animelistmaster_xml).getroot()
 
         bulk_anime = []
         bulk_titles = []
 
         for anime in anime_titles.findall('anime'):
+            aid = anime.get('aid')
+            anime_elem = anime_tvdb.find(('anime[@anidbid="%s"]' % (aid)))
+            tvdb_id = anime_elem.get('tvdbid')
+            try:
+                int(tvdb_id)
+            except ValueError:
+                tvdb_id = None
+            imdb_id = anime_elem.get('imdbid')
+
             anime_data = {
-                'anidb_id': anime.get('aid'),
+                'anidb_id': aid,
+                'tvdb_id': tvdb_id,
+                'imdb_id': imdb_id,
             }
 
             anime_model = anime_models.Anime.objects.filter(**anime_data)
@@ -41,3 +74,6 @@ class Command(BaseCommand):
 
         anime_models.Anime.objects.bulk_create(bulk_anime)
         anime_models.Title.objects.bulk_create(bulk_titles)
+
+
+

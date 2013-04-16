@@ -4,6 +4,18 @@ from recommend_core import models as core_models
 
 class Anime(models.Model):
     anidb_id = models.IntegerField(primary_key=True, null=False, unique=True)
+    tvdb_id = models.IntegerField(null=True, blank=True) 
+    imdb_id = models.CharField(max_length=30, null=True, blank=True)
+    # only grab these fields when we need it to conserve space
+    # and less api calls
+    description = models.CharField(max_length=255, null=True, blank=True)
+    network = models.CharField(max_length=50, null=True, blank=True)
+    first_aired = models.DateField(null=True, blank=True)
+    genre = models.ManyToManyField('Genre')
+    banner_url = models.URLField(max_length=100, null=True, blank=True)
+    poster_url = models.URLField(max_length=100, null=True, blank=True)
+    fanart_url = models.URLField(max_length=100, null=True, blank=True)
+
 
     @property
     def title(self):
@@ -18,6 +30,9 @@ class Anime(models.Model):
 
     def __str__(self):
         return "%s - %s" % (self.anidb_id, self.title)
+
+class Genre(models.Model):
+    genre = models.CharField(max_length=50, null=False, blank=False, unique=True)
 
 
 class Title(models.Model):

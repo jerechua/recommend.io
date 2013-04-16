@@ -155,7 +155,7 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
     },
     'loggers': {
         'django.request': {
@@ -182,4 +182,9 @@ API_KEYS['easyrec'] = {
     'api_token': '',
     'tenant_id': '',
     'api_url': '',
+}
+
+API_KEYS['tvdb'] = {
+    'api_key': '',
+    'base_url': ''
 }
