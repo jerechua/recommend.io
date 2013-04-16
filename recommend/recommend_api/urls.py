@@ -16,5 +16,5 @@ defaults['anime'] = {
 
 urlpatterns = patterns('',
     url(r'anime/?$', generics.ListAPIView.as_view(**defaults['anime'])),
-    url(r'autocomplete/(?P<anime_title>\w+)?$', api_views.AnimeAutoCompleteView.as_view()),
+    url(r'autocomplete/(?P<anime_title>\w+)?$', api_views.AnimeAutoCompleteView.as_view(**defaults['anime'])),
 )

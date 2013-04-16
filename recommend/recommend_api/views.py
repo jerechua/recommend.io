@@ -12,6 +12,9 @@ class AnimeAutoCompleteView(generics.ListAPIView):
     def get_queryset(self):
         title = self.kwargs.get('anime_title')
 
-        titles = anime_models.Title.objects.filter(title__contains=title).filter(type='main')
+        titles_list = anime_models.Title.objects.values_list('anime', flat=True).filter(title__contains=title).annotate(Count('anime'))
 
-        return titles
+        animes = anime_models.Anime.objects.filter(anidb_id__in=list(titles_list))
+
+
+        return animes
