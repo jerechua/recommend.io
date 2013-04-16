@@ -30,11 +30,9 @@ class Tvdb(BaseIntegration):
         genres = xml.find('.//Genre').text
         xml_data['genre'] = genres.strip('|').split('|')
 
-        xml_data['banner_url'] = self._get_content_url(xml.find('.//banner').text)
-        xml_data['poster_url'] = self._get_content_url(xml.find('.//poster').text)
-        xml_data['fanart_url'] = self._get_content_url(xml.find('.//fanart').text)
+        xml_data['banner_url'] = xml.find('.//banner').text
+        xml_data['poster_url'] = xml.find('.//poster').text
+        xml_data['fanart_url'] = xml.find('.//fanart').text
 
         return xml_data
 
-    def _get_content_url(self, content_url):
-        return '%s%s' % (self.META_URL, content_url)
