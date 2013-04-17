@@ -31,6 +31,10 @@ div.main-content ul{
         margin-left: -8px;
     }
 
+    div.main-content div.info p{
+        margin-top: 20px;
+    }
+
 div.suggestions {
     height: 210px;
 }

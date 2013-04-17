@@ -21,3 +21,14 @@ class LandingPageView(TemplateView):
         context['animes'] = self.paginator.page(page)
 
         return context
+
+class AnimePageView(TemplateView):
+    template_name = 'anime.html'
+
+    def get_context_data(self, pk):
+        context = {}
+        context['anime'] = anime_models.Anime.objects.get(pk=pk).verify_data()
+        context['meta_url'] = settings.API_KEYS['tvdb']['meta_url']
+        return context
+
+

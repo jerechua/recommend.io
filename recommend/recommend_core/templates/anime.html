@@ -1,0 +1,92 @@
+<html ng-app="recommendr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Recommendr</title>
+
+        <link rel="stylesheet" href="{{STATIC_URL}}css/normalize.css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/foundation.min.css" />
+        <link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="{{STATIC_URL}}css/app.css"/>
+
+        <script src="{{STATIC_URL}}js/vendor/custom.modernizr.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+        <script src="{{STATIC_URL}}js/recommendr.js"></script>
+        <script src="{{STATIC_URL}}js/controller/main_controller.js"></script>
+
+    </head>
+    <body>
+        <nav class='top-bar'>
+            <ul class='title-area'>
+                <li class='name'>
+                    <h1><a href='/'>Recommendr</a></h1>
+                </li>
+            </ul>
+        </nav>
+
+        <div class='row'>
+            <div class='main-content panel row'>
+                <div> <img src="{{meta_url}}{{anime.banner_url}}"></img></div>
+                <div class='small-6 columns'>
+                    <img src='{{meta_url}}{{anime.poster_url}}'></img>
+                </div>
+
+                <div class='small-6 columns'>
+                    <div class='row info'>
+                        <h2>{{anime.title}}</h2>
+                        <strong>({{anime.title_en}})</strong>
+                        <p>{{anime.description}}</p>
+                    </div>
+                </div>
+
+                <ul class='button-group'>
+                    <li><a href="#" class='small button'>Watched</a></li>
+                    <li><a href="#" class='small button'>Want to watch</a></li>
+                    <li class='rating'>
+                        <i class="icon-star-empty"></i>
+                        <i class="icon-star-empty"></i>
+                        <i class="icon-star-empty"></i>
+                        <i class="icon-star-empty"></i>
+                        <i class="icon-star-empty"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='row suggestions'>
+            <h4>Recommendr suggests:</h4>
+            <ul class='inline-list'>
+                <li><a href="#" class='paginate'><i class='icon-chevron-left'></i></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#"><img src='http://img1.ak.crunchyroll.com/i/spire3/c8bd8adb3eb74e5f5c96a0fd343f7da51307494412_full.jpg'></a></li>
+                <li><a href="#" class='paginate'><i class='icon-chevron-right'></i></a></li>
+            </ul>
+        </div>
+
+    </body>
+
+    <script src="{{STATIC_URL}}js/foundation/foundation.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.alerts.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.clearing.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.cookie.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.dropdown.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.forms.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.joyride.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.magellan.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.orbit.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.placeholder.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.reveal.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.section.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.tooltips.js"></script>
+    <script src="{{STATIC_URL}}js/foundation/foundation.topbar.js"></script>
+
+</html>

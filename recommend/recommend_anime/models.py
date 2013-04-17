@@ -1,5 +1,7 @@
 from django.db import models
 
+from third_party.tvdb import Tvdb
+
 from recommend_core import models as core_models
 
 class Anime(models.Model):
@@ -26,6 +28,27 @@ class Anime(models.Model):
         title = self.title_set.filter(locale='en')
         if title.exists():
             return title[0].title
+
+    def verify_data(self, *args, **kwargs):
+        """
+        grabs tvdb data
+        """
+
+        if self.description is None:
+            data = Tvdb().get_series_by_id(self.tvdb_id)
+            self.description = data['description']
+            self.network = data['network']
+            self.first_aired = data['first_aired']
+            for genre in data['genre']:
+                (genre_model, created) = Genre.objects.get_or_create(genre=genre)
+                self.genre.add(genre_model)
+            self.banner_url = data['banner_url']
+            self.poster_url = data['poster_url']
+            self.fanart_url = data['fanart_url']
+            self.save()
+
+        return self
+
 
 
     def __str__(self):
