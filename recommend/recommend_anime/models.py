@@ -1,12 +1,18 @@
+import os
+
 from django.db import models
+from django.conf import settings
 
 from third_party.tvdb import Tvdb
 
 from recommend_core import models as core_models
 
+class DummyObject(object):
+    title = "No Data Found, use IMDB"
+
 class Anime(models.Model):
     anidb_id = models.IntegerField(primary_key=True, null=False, unique=True)
-    tvdb_id = models.IntegerField(null=True, blank=True) 
+    tvdb_id = models.IntegerField(null=True, blank=True)
     imdb_id = models.CharField(max_length=30, null=True, blank=True)
     # only grab these fields when we need it to conserve space
     # and less api calls
@@ -18,7 +24,6 @@ class Anime(models.Model):
     poster_url = models.URLField(max_length=100, null=True, blank=True)
     fanart_url = models.URLField(max_length=100, null=True, blank=True)
 
-
     @property
     def title(self):
         return self.title_set.get(type='main').title
@@ -29,30 +34,37 @@ class Anime(models.Model):
         if title.exists():
             return title[0].title
 
+    def _file_exists(self, file):
+        return os.path.exists(settings.IMAGE_DIR + file)
+
     def verify_data(self, *args, **kwargs):
         """
         grabs tvdb data
         """
 
-        if self.description is None:
-            data = Tvdb().get_series_by_id(self.tvdb_id)
-            self.description = data['description']
-            self.network = data['network']
-            self.first_aired = data['first_aired']
-            for genre in data['genre']:
-                (genre_model, created) = Genre.objects.get_or_create(genre=genre)
-                self.genre.add(genre_model)
-            self.banner_url = data['banner_url']
-            self.poster_url = data['poster_url']
-            self.fanart_url = data['fanart_url']
-            self.save()
+        if not self.tvdb_id:
+            return DummyObject()
+
+        if self.banner_url and self.poster_url and self.fanart_url and self._file_exists(self.banner_url) and self._file_exists(self.poster_url) and self._file_exists(self.fanart_url):
+            return self
+
+        data = Tvdb().get_series_by_id(self)
+        self.description = data['description']
+        self.network = data['network']
+        self.first_aired = data['first_aired']
+        for genre in data['genre']:
+            (genre_model, created) = Genre.objects.get_or_create(genre=genre)
+            self.genre.add(genre_model)
+        self.banner_url = data['banner_url']
+        self.poster_url = data['poster_url']
+        self.fanart_url = data['fanart_url']
+        self.save()
 
         return self
 
-
-
     def __str__(self):
         return "%s - %s" % (self.anidb_id, self.title)
+
 
 class Genre(models.Model):
     genre = models.CharField(max_length=50, null=False, blank=False, unique=True)

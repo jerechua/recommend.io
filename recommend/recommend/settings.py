@@ -169,6 +169,8 @@ LOGGING = {
 
 # Custom Settings:
 
+IMAGE_DIR = 'recommend_core/static/img/'
+
 PAGINATE_BY = 10
 
 # Django Rest Framework settings
