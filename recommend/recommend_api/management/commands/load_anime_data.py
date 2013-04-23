@@ -37,14 +37,22 @@ class Command(BaseCommand):
         bulk_anime = []
         bulk_titles = []
 
-        for anime in anime_titles.findall('anime'):
+        all_anime_tags = anime_titles.findall('anime')
+
+        for anime in all_anime_tags:
             aid = anime.get('aid')
             anime_elem = anime_tvdb.find(('anime[@anidbid="%s"]' % (aid)))
             tvdb_id = anime_elem.get('tvdbid')
+
             try:
                 int(tvdb_id)
             except ValueError:
+
+                # Don't load any imdb movies first for now
+                continue
+                # Remove continue to load imdb stuff
                 tvdb_id = None
+
             imdb_id = anime_elem.get('imdbid')
 
             anime_data = {
@@ -60,19 +68,28 @@ class Command(BaseCommand):
                 anime_model = anime_models.Anime(**anime_data)
                 bulk_anime.append(anime_model)
 
+        anime_models.Anime.objects.bulk_create(bulk_anime)
+
+        for anime in all_anime_tags:
+            aid = anime.get('aid')
+            anime_instance = anime_models.Anime.objects.filter(anidb_id=aid)
+
+            if not anime_instance.exists():
+                continue
+
             for title in anime:
                 title_data = {
                     'type': title.get('type'),
                     'title': title.text,
                     'locale': title.get('{http://www.w3.org/XML/1998/namespace}lang'),
-                    'anime': anime_model,
+                    'anime': anime_instance[0],
                 }
 
                 title_model = anime_models.Title.objects.filter(**title_data)
                 if not title_model.exists():
                     bulk_titles.append(anime_models.Title(**title_data))
 
-        anime_models.Anime.objects.bulk_create(bulk_anime)
+        
         anime_models.Title.objects.bulk_create(bulk_titles)
 
 

@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'third_party',
     'utils',
     'social_auth',
+    'storages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -190,3 +191,11 @@ API_KEYS['tvdb'] = {
     'api_key': '',
     'base_url': ''
 }
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+BOTO_S3_BUCKET = ''
+
+

@@ -1,6 +1,9 @@
 from base_integration import BaseIntegration
 
 from django.conf import settings
+from django.core.files.storage import default_storage
+
+from django_boto.s3 import upload
 
 from xml.etree import ElementTree
 
@@ -52,5 +55,12 @@ class Tvdb(BaseIntegration):
         f.write(urllib.urlopen(settings.API_KEYS['tvdb']['meta_url'] + url).read())
         f.close()
 
-        return url
+        f = open(file_path, 'r')
+
+        upload(f)
+
+        f.close()
+
+        return f.name
+
 

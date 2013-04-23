@@ -3,6 +3,9 @@ import os
 from django.db import models
 from django.conf import settings
 
+from django_boto.s3.storage import S3Storage
+s3 = S3Storage()
+
 from third_party.tvdb import Tvdb
 
 from recommend_core import models as core_models
@@ -11,7 +14,7 @@ class DummyObject(object):
     title = "No Data Found, use IMDB"
 
 class Anime(models.Model):
-    anidb_id = models.IntegerField(primary_key=True, null=False, unique=True)
+    anidb_id = models.IntegerField(null=False, unique=True)
     tvdb_id = models.IntegerField(null=True, blank=True)
     imdb_id = models.CharField(max_length=30, null=True, blank=True)
     # only grab these fields when we need it to conserve space
@@ -20,9 +23,12 @@ class Anime(models.Model):
     network = models.CharField(max_length=50, null=True, blank=True)
     first_aired = models.DateField(null=True, blank=True)
     genre = models.ManyToManyField('Genre')
-    banner_url = models.URLField(max_length=100, null=True, blank=True)
-    poster_url = models.URLField(max_length=100, null=True, blank=True)
-    fanart_url = models.URLField(max_length=100, null=True, blank=True)
+    # banner_url = models.URLField(max_length=100, null=True, blank=True)
+    # poster_url = models.URLField(max_length=100, null=True, blank=True)
+    # fanart_url = models.URLField(max_length=100, null=True, blank=True)
+    banner_url = models.ImageField(storage=s3, null=True, blank=True)
+    poster_url = models.ImageField(storage=s3, null=True, blank=True)
+    fanart_url = models.ImageField(storage=s3, null=True, blank=True)
 
     @property
     def title(self):
@@ -37,7 +43,7 @@ class Anime(models.Model):
     def _file_exists(self, file):
         return os.path.exists(settings.IMAGE_DIR + file)
 
-    def verify_data(self, *args, **kwargs):
+    def verify_data(self):
         """
         grabs tvdb data
         """
