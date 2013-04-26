@@ -1,14 +1,15 @@
 from base_integration import BaseIntegration
 
 from django.conf import settings
-from django.core.files.storage import default_storage
+from django.core.files.temp import NamedTemporaryFile
+from django.core.files import File
 
 from django_boto.s3 import upload
 
 from xml.etree import ElementTree
 
 import requests
-import urllib
+import urllib2
 import os
 
 
@@ -35,7 +36,8 @@ class Tvdb(BaseIntegration):
         xml_data['first_aired'] = xml.find('.//FirstAired').text
 
         genres = xml.find('.//Genre').text
-        xml_data['genre'] = genres.strip('|').split('|')
+        if genres:
+            xml_data['genre'] = genres.strip('|').split('|')
 
         xml_data['banner_url'] = self._save_photo(xml.find('.//banner').text)
         xml_data['poster_url'] = self._save_photo(xml.find('.//poster').text)
@@ -44,23 +46,20 @@ class Tvdb(BaseIntegration):
         return xml_data
 
     def _save_photo(self, url):
+        if url is None:
+            return None
 
         file_path = "%s%s" % (settings.IMAGE_DIR, url)
         dir_path = os.path.dirname(file_path)
 
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
+        _url = settings.API_KEYS['tvdb']['meta_url'] + url
 
-        f = open(file_path ,'wb')
-        f.write(urllib.urlopen(settings.API_KEYS['tvdb']['meta_url'] + url).read())
-        f.close()
+        temp_img = NamedTemporaryFile()
+        temp_img.write(urllib2.urlopen(_url).read())
+        temp_img.flush()
 
-        f = open(file_path, 'r')
-
-        upload(f)
-
-        f.close()
-
-        return f.name
+        # image_field.save(url, File(temp_img))
+        return [url, File(temp_img)]
+        
 
 

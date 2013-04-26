@@ -3,15 +3,14 @@ import os
 from django.db import models
 from django.conf import settings
 
-from django_boto.s3.storage import S3Storage
-s3 = S3Storage()
-
 from third_party.tvdb import Tvdb
 
 from recommend_core import models as core_models
 
+
 class DummyObject(object):
     title = "No Data Found, use IMDB"
+
 
 class Anime(models.Model):
     anidb_id = models.IntegerField(null=False, unique=True)
@@ -26,9 +25,9 @@ class Anime(models.Model):
     # banner_url = models.URLField(max_length=100, null=True, blank=True)
     # poster_url = models.URLField(max_length=100, null=True, blank=True)
     # fanart_url = models.URLField(max_length=100, null=True, blank=True)
-    banner_url = models.ImageField(storage=s3, null=True, blank=True)
-    poster_url = models.ImageField(storage=s3, null=True, blank=True)
-    fanart_url = models.ImageField(storage=s3, null=True, blank=True)
+    banner_url = models.ImageField(upload_to='banner', null=True, blank=True)
+    poster_url = models.ImageField(upload_to='poster', null=True, blank=True)
+    fanart_url = models.ImageField(upload_to='fanart', null=True, blank=True)
 
     @property
     def title(self):
@@ -51,20 +50,26 @@ class Anime(models.Model):
         if not self.tvdb_id:
             return DummyObject()
 
-        if self.banner_url and self.poster_url and self.fanart_url and self._file_exists(self.banner_url) and self._file_exists(self.poster_url) and self._file_exists(self.fanart_url):
+        if self.banner_url and self.poster_url and self.fanart_url:
             return self
 
         data = Tvdb().get_series_by_id(self)
         self.description = data['description']
         self.network = data['network']
         self.first_aired = data['first_aired']
-        for genre in data['genre']:
-            (genre_model, created) = Genre.objects.get_or_create(genre=genre)
-            self.genre.add(genre_model)
-        self.banner_url = data['banner_url']
-        self.poster_url = data['poster_url']
-        self.fanart_url = data['fanart_url']
+        if data.get('genre', None):
+            for genre in data['genre']:
+                (genre_model, created) = Genre.objects.get_or_create(genre=genre)
+                self.genre.add(genre_model)
+
         self.save()
+
+        image_urls = ('banner_url', 'poster_url', 'fanart_url')
+
+        for url in image_urls:
+            if data[url]:
+                getattr(self, url).save(data[url][0], data[url][1])
+                self.save()
 
         return self
 

@@ -32,9 +32,19 @@
 
         <div class='row'>
             <div class='main-content panel row'>
-                <div> <img src="{{STATIC_URL}}img/{{anime.banner_url.url}}"></img></div>
+                <div> 
+                    {% if anime.banner_url %}
+                    <img src='{{anime.banner_url.url}}'></img>
+                    {% else %}
+                    <h4>Sorry, no images found</h4>
+                    {% endif %}
+                </div>
                 <div class='small-6 columns'>
-                    <img src='{{STATIC_URL}}img/{{anime.poster_url.url}}'></img>
+                    {% if anime.poster_url %}
+                    <img src='{{anime.poster_url.url}}'></img>
+                    {% else %}
+                    <h4>Sorry, no images found</h4>
+                    {% endif %}
                 </div>
 
                 <div class='small-6 columns'>
